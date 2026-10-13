@@ -1,0 +1,40 @@
+"TC ID","Test Scenario","Pre-conditions","Test Steps","Test Data","Expected Result","Actual Result","Status"
+"TC-01","Navigate to Admin Module","User is on the OrangeHRM login page","1. Enter valid Admin credentials.
+2. Click Login.
+3. Click Admin from the left navigation menu.","Username: Admin
+Password: admin123","Admin Management module opens successfully.","Admin Management module opens successfully.","Pass"
+"TC-02","Add a New User","Admin module is open","1. Click Add.
+2. Select User Role.
+3. Select Employee Name.
+4. Enter a unique Username.
+5. Enter Password and Confirm Password.
+6. Select Status.
+7. Click Save.","User Role: ESS
+Employee Name: (Any valid employee)
+Username: qauser<timestamp>
+Status: Enabled
+Password: Qwerty@1234567","New user is created successfully and a success message is displayed.","New user created successfully.","Pass"
+"TC-03","Search Newly Created User","New user has been created","1. Enter the newly created username in the Username field.
+2. Click Search.","Username from TC-02","The newly created user is displayed with the correct details.","User displayed with correct details.","Pass"
+"TC-04","Edit User Details","Newly created user exists","1. Search for the user.
+2. Click Edit.
+3. Update all applicable user details.
+4. Click Save.","Username: <new_unique_username>
+Status: Disabled","User details are updated successfully and a success message is displayed.","User details updated successfully.","Pass"
+"TC-05","Validate Updated User Details","User details have been updated","1. Search for the updated user.
+2. Verify the Username.
+3. Verify User Role.
+4. Verify Employee Name.
+5. Verify Status.","Updated Username from TC-04","All updated details match the values entered during editing.","All updated details match.","Pass"
+"TC-06","Delete User","User exists in the user list","1. Search for the user.
+2. Select the user using the checkbox.
+3. Click Delete.
+4. Confirm the deletion.","Updated Username from TC-04","User is deleted successfully and a success message is displayed.","User deleted successfully.","Pass"
+"TC-07","Verify User Deletion","User has been deleted","1. Search for the deleted username.
+2. Click Search.","Updated Username from TC-04","The deleted user is not displayed in the search results.","User is not displayed in the search results.","Pass"
+
+"","","","","","","",""
+"Summary of Bugs / Issues Encountered"
+"1. Weak Password Silent Failure: When adding/editing a user and providing a password that the system evaluates as 'Very Weak' (e.g. Test@12345), clicking Save does nothing. The form does not submit, and no clear validation error is surfaced below the field to indicate why."
+"2. Employee Name Display Mismatch: When selecting an employee from the autocomplete dropdown (e.g. 'A8DCo 4Ys 010Z' where '4Ys' is the middle name), the System Users table only displays the first and last name ('A8DCo 010Z'). This causes strict text assertions to fail unless handled by splitting the name."
+"3. Edit Button Positioning: The action buttons in the user table don't have unique data-test-id attributes. Relying on index (e.g., button 0 or 1) is fragile, requiring tests to use CSS selectors specifically targeting the icon classes (e.g., .bi-pencil-fill and .bi-trash)."
